@@ -1,4 +1,5 @@
-// See License.txt in main respository directory
+// vi:nu:et:sts=4 ts=4 sw=4
+// See License.txt in main repository directory
 
 // Program to play with templates and see what is
 // available for us to use in this context.
