@@ -41,7 +41,8 @@ func IsPathRegularFile(fp string) (string,error) {
 	return path,errors.New("path not regular file")
 }
 
-// ReadJson preprocesses out comments and then unmarshals the data.
+// ReadJson preprocesses out comments and then unmarshals the data
+// generically.
 func ReadJson(jsonPath string) (interface{}, error) {
 	var err			error
 	var jsonOut		interface{}
@@ -64,5 +65,30 @@ func ReadJson(jsonPath string) (interface{}, error) {
 	}
 
 	return jsonOut,err
+}
+
+// ReadJson preprocesses out comments and then unmarshals the data
+// into a data structure previously defined.
+func ReadJsonToData(jsonPath string, jsonOut interface{}) error {
+	var err			error
+
+	// Open the input template file
+	input, err := os.Open(jsonPath)
+	if err != nil {
+		return err
+	}
+	textBuf := strings.Builder{}
+	err = jsonpreprocess.WriteMinifiedTo(&textBuf, input)
+	if err != nil {
+		return err
+	}
+
+	// Read and process the template file
+	err = json.Unmarshal([]byte(textBuf.String()), jsonOut)
+	if err != nil {
+		return err
+	}
+
+	return err
 }
 
