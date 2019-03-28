@@ -7,10 +7,13 @@
 package golangPkg
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
+	"github.com/2kranki/jsonpreprocess"
 )
 
 
@@ -38,5 +41,28 @@ func IsPathRegularFile(fp string) (string,error) {
 	return path,errors.New("path not regular file")
 }
 
+// ReadJson preprocesses out comments and then unmarshals the data.
+func ReadJson(jsonPath string) (interface{}, error) {
+	var err			error
+	var jsonOut		interface{}
 
+	// Open the input template file
+	input, err := os.Open(jsonPath)
+	if err != nil {
+		return jsonOut,err
+	}
+	textBuf := strings.Builder{}
+	err = jsonpreprocess.WriteMinifiedTo(&textBuf, input)
+	if err != nil {
+		return jsonOut,err
+	}
+
+	// Read and process the template file
+	err = json.Unmarshal([]byte(textBuf.String()), &jsonOut)
+	if err != nil {
+		return jsonOut,err
+	}
+
+	return jsonOut,err
+}
 

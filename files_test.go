@@ -26,3 +26,22 @@ func TestIsPathRegularFile(t *testing.T) {
 
 }
 
+func TestReadJson(t *testing.T) {
+	var jsonOut		interface{}
+	var wrk			interface{}
+	var err			error
+
+	jsonOut,err = ReadJson("test.exec.json.txt")
+	if err != nil {
+		t.Errorf("ReadJson(test.exec.json.txt) failed: %s\n", err)
+	}
+	m := jsonOut.(map[string]interface{})
+	if wrk = m["debug"]; wrk == nil {
+		t.Errorf("ReadJson(test.exec.json.txt) missing 'debug'\n")
+	}
+	if wrk = m["debug_not_there"]; wrk != nil {
+		t.Errorf("ReadJson(test.exec.json.txt) missing 'debug'\n")
+	}
+}
+
+
