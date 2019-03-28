@@ -4,7 +4,7 @@
 // Program to play with templates and see what is
 // available for us to use in this context.
 
-package files
+package golangPkg
 
 import (
 	"errors"

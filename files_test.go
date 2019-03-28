@@ -3,7 +3,7 @@
 
 // Test files package
 
-package files
+package golangPkg
 
 import "fmt"
 import "testing"

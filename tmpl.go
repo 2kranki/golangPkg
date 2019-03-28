@@ -2,7 +2,7 @@
 
 // Helper Functions for use with Templates
 
-package tmpl
+package golangPkg
 
 //import  "errors"
 import  "io"
