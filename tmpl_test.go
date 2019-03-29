@@ -34,10 +34,10 @@ var strTests    []TestData = []TestData {
     {"test04", "{{index .Defns \"x\"}}", data, true, "X"},
 }
 
-func TestExecTmplFile(t *testing.T) {
+func TestTmplExecFile(t *testing.T) {
     fp := "./test.tmpl.txt"
     w := &strings.Builder{}
-    err := ExecTmplFile(w, fp, "not really used", nil)
+    err := TmplExecFile(w, fp, "not really used", nil)
     if err != nil {
         t.Errorf("File0 failed, got: '%s' needed: 'just text\\n' :: %s\n", w.String(), err)
         return
@@ -47,10 +47,10 @@ func TestExecTmplFile(t *testing.T) {
     }
 }
 
-func TestExecTmplStr(t *testing.T) {
+func TestTmplExecStr(t *testing.T) {
     for _,test := range strTests {
         w := &strings.Builder{}
-        err := ExecTmplStr(w, test.name, test.tmpl, test.data, nil)
+        err := TmplExecStr(w, test.name, test.tmpl, test.data, nil)
         if err != nil {
             if test.shouldWork {
                 t.Errorf("%s failed, got: '%s' needed: '%s' :: %s\n", 
